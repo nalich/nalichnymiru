@@ -26,18 +26,6 @@
     <main>
       <section class="container mx-auto grid  gap-8 my-8 px-4">
         <!--Место для баннера и добавить класс md:grid-cols-auto-1fr-->
-          <button id="speak" class="hidden ml-4 relative h-5 w-5 transition-opacity duration-300 hover:opacity-75">
-        <svg class="svg-color" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"></path></svg>
-        <span class="absolute w-max-content top-0 bottom-0 flex items-center pl-6 opacity-0 hover:opacity-100 transition-opacity duration-300">
-          Прочитать статью
-        </span>
-    </button>
-    <button id="pauseplay" class="invisible ml-4 relative h-5 w-5 transition-opacity duration-300 hover:opacity-75">
-        Пауза
-    </button>
-    <button id="cancel" class="ml-4 relative h-5 w-5 transition-opacity duration-300 hover:opacity-75">
-        Пауза
-    </button>
         <div class="content prose md:order-2 mx-auto">
             <h1><span>Автоломбард как открыть с нуля: пошаговая инструкция</span></h1>
             <p><span>Автоломбард &ndash; один из необычных, однако очень прибыльных автомобильных бизнесов сегодня. Предпринимателю, который задумывается про открытие подобной компании, нужно для начала понять специфику работы автомобильного ломбарда. Это кредитная организация, которая под залог транспортного средства выдает в долг определенную сумму денег, которую клиент должен вернуть с процентами. Подобный вид кредитования достаточно востребован среди населения, поскольку является достойной альтернативой банкам. Клиент может получить здесь деньги без длительного ожидания и сбора огромного пакета документов.</span></p>
@@ -118,64 +106,5 @@
           </p>
         </div>
     </footer>
-    <script>
-const button = document.getElementById('speak');
-const cancel = document.getElementById('cancel');
-const classContent = document.getElementsByClassName('content');
-const buttonPausePlay = document.getElementById('pauseplay');
-const googlevoice = 'Google русский';
-const synth = window.speechSynthesis;
-function loadVoices() {
-	let voices = speechSynthesis.getVoices();
-}
-
-loadVoices();
-synth.onvoiceschanged = function(e) {
-  loadVoices();
-};
-
-const main = () => {
-    button.classList.remove('hidden');
-    button.addEventListener('click', handlerSpeechStart);
-}
-
-const handlerSpeechStart = () => {
-    for (var i = 0; i < classContent.length; i++){
-        init(classContent[i].textContent);
-    }
-    buttonPausePlay.addEventListener('click', pause);
-    buttonPausePlay.classList.remove('invisible');
-}
-
-const init = (text) => {
-    var msg = new SpeechSynthesisUtterance();
-    msg.text = text;
-    msg.volume = 1;
-    msg.rate = 1;
-    msg.pitch = 1;
-    msg.voice = speechSynthesis.getVoices().filter(function(voice) { return voice.name == googlevoice; })[0];
-    synth.speak(msg);
-}
-
-const resume = () => {
-    synth.resume();
-    buttonPausePlay.classList.remove('invisible');
-}
-
-const pause = () => {
-    synth.pause();
-    buttonPausePlay.classList.add('invisible');
-    button.addEventListener('click', resume);
-}
-
-const canceled = () => {
-    synth.cancel();
-    console.log('Hellow')
-}
-if ('speechSynthesis' in window && button) {
-    main();
-    cancel.addEventListener('click', canceled);
-}
-    </script>
 </body>
 </html>
